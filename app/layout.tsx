@@ -17,9 +17,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className + " bg-white pt-20"}>
-        <Menu />
-        <main className="z-10 px-5">{children}</main>
+      <body className={inter.className + " bg-white"}>
+        <div className="">
+          <h1 className="text-3xl font-medium p-3">Genocide watch</h1>
+          <Menu />
+        </div>
+
+        <main className="z-10 px-5  pt-20">{children}</main>
       </body>
     </html>
   );
