@@ -1,1 +1,0 @@
-# hackforgaza-team-17
