@@ -10,12 +10,16 @@ export const GeoCoordinate = z.object({
 export const GeoCoordinates = GeoCoordinate.array();
 
 export const IncidentCategory = z.union([
-    z.literal('verbalAggression'),
+    z.literal('verbal aggression'),
     z.literal('detention'),
     z.literal('assault'),
     z.literal('torture'),
-    z.literal('explosion'),
-    z.literal('dispossession')
+    z.literal('firearm assault'),
+    z.literal('missile strike'),
+    z.literal('bombing'),
+    z.literal('white phosphorus'),
+    z.literal('depleted uranium'),
+    z.literal('dispossession'),
 ]);
 
 export const Incident = z.object({
