@@ -1,6 +1,6 @@
 import { Response } from "express"
 import { UnknownKeysParam, ZodObject, ZodRawShape, ZodTypeAny, ZodUndefined } from "zod";
-import { HttpResponseStatusCode } from "./http";
+import { HttpResponseStatusCode, httpResponseStatus } from "./http";
 
 export type JsonRestApiResponse<T> = {
     status: HttpResponseStatusCode,
@@ -27,13 +27,13 @@ export function makeResponder<T>(expressResponse: Response) {
 export type Responder<T> = ReturnType<typeof makeResponder<T>>;
 
 export const BAD_REQUEST_RESPONSE = (msg: string) => ({
-    status: 400,
+    status: httpResponseStatus.BAD_REQUEST,
     userFriendlyMessage: msg,
     data: undefined
 }) as const;
 
 export const INTERNAL_SERVER_ERROR_RESPONSE = (msg: string) => ({
-    status: 500,
+    status: httpResponseStatus.INTERNAL_SERVER_ERROR,
     userFriendlyMessage: msg,
     data: undefined
 }) as const;
