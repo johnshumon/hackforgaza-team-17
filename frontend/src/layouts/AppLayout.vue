@@ -3,12 +3,12 @@
 </script>
 
 <template>
-    <div class="flex flex-col min-h-screen">
+    <div class="flex flex-col min-h-screen bg-gray-200">
         <!-- App Bar -->
         <header class="flex items-center justify-between bg-primary p-4">
-            <p class="font-extrabold text-white text-2xl sm:text-3xl">
+            <a href="/" class="font-extrabold text-white text-2xl sm:text-3xl">
                 Genocide∙Watch
-            </p>
+            </a>
             <button class="btn">
                 Share
                 <i class="fi fi-ss-share-square"></i>
