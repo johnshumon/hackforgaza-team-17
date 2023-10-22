@@ -27,10 +27,11 @@ A platform for visitors “easily see” the evidence-based timeline of genocida
 ### Features and Functionality
 
 1. Humanise
-  1. Memorialise their identity and their memories
-    1. name
-    2. photographs, videos
-    3. age, gender
+  i. Memorialise their identity and their memories
+    - name
+    - photographs, videos
+    - age, gender
+
 2. Journal of Oppression
   1. Victims
     1. Killed
