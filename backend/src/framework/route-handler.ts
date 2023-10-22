@@ -52,7 +52,7 @@ export class JsonRestApiRouteHandler<
         description: string,
         request: RequestSchema<A,B,C,D>, 
         response: ResponseSchema<F,G,H,I>, 
-        query?: QuerySchema<J,K,L,M>
+        query?: QuerySchema<J,K,L,M>,
         handler: (request: D, params: RouteParameters, query?: M) => Promise<JsonRestApiResponse<I>>
     }){
         this.description = args.description;
