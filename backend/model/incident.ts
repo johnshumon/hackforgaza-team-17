@@ -9,11 +9,21 @@ export const GeoCoordinate = z.object({
 
 export const GeoCoordinates = GeoCoordinate.array();
 
+export const IncidentCategory = z.union([
+    z.literal('verbalAggression'),
+    z.literal('detention'),
+    z.literal('assault'),
+    z.literal('torture'),
+    z.literal('explosion'),
+    z.literal('dispossession')
+]);
+
 export const Incident = z.object({
     id: z.string().min(1),
     title: z.string().min(1),
     dateTime: z.string().datetime(),
     location: GeoCoordinates,
+    categories: IncidentCategory.array(),
     description: z.string(),
     tags: z.string().array()
 });
