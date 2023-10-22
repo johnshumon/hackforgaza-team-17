@@ -15,9 +15,9 @@
             </button>
         </header>
         <!-- Main -->
-        <div class="grow">
+        <main class="grow">
             <slot/>
-        </div>
+        </main>
         <!-- Footer -->
         <footer class="flex justify-center items-center bg-base-300 h-[2rem]">
             <p class="text-xs opacity-50">Copyright © {{ year }} by <span class="text-primary">Genocide Watch</span></p>
