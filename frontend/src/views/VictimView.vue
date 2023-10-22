@@ -38,9 +38,9 @@ const victim = victims[0]
 <template>
     <div class="flex flex-col items-center min-h-screen container mx-auto">
         <div class="w-full">
-            <a class="p-3 text-red-900 flex gap-3 items-center" href="/">
+            <a class="p-3 text-red-900 flex gap-3 items-center" :href="'/incidents/' + victim.id">
                 <i class="fi fi-ss-arrow-left h-full block"></i>
-                Back to map
+                Back to incident 
             </a>
         </div>
 
