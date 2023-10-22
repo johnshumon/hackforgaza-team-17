@@ -12,6 +12,6 @@
 
 <template>
   <div ref="mainBox">
-    <IncidentMap :center-position="PalestineCenter" :zoom="7" :height="mainHeight" />
+    <IncidentMap :center-position="PalestineCenter" :zoom="7" :style="{height: mainHeight}" />
   </div>
 </template>
