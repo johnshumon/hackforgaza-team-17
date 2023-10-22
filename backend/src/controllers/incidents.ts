@@ -4,7 +4,14 @@ import neo4j from "../libs/neo4j";
 import { Incident } from "../../model/incident";
 
 const IncidentResult = z.object({
-    incident: Incident
+    incident: Incident,
+    victims: z.object({
+        killed: z.number().int().gte(0),
+        maimed: z.number().int().gte(0),
+        injured: z.number().int().gte(0),
+        detained: z.number().int().gte(0),
+        dispossessed: z.number().int().gte(0),
+    })
 });
 type IncidentResult = z.infer<typeof IncidentResult>;
 
