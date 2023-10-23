@@ -9,6 +9,9 @@ import iconVictimsDetained from "../assets/icons/victims/detained.svg";
 import iconVictimsDispossessed from "../assets/icons/victims/dispossessed.svg";
 import iconIncident from "../assets/icons/victims/incident.svg";
 import type { Incident } from '@/model/incident';
+import { useRouter } from 'vue-router';
+    
+    const router = useRouter();
 
     const props = defineProps<{
         mapId: string
@@ -20,7 +23,7 @@ import type { Incident } from '@/model/incident';
         incidents: Incident[],
     }>();
 
-const mapBox = ref<HTMLDivElement>();
+    const mapBox = ref<HTMLDivElement>();
 
 onMounted(async () => {
     const googleMaps = await google.maps.importLibrary("maps") as google.maps.MapsLibrary;
@@ -92,7 +95,8 @@ async function initMaps(googleMaps: google.maps.MapsLibrary, googleMarker: googl
                 content: createMarkerGlyph(incident),
             });
             marker.addListener("click", ()=>{
-                console.log(incident)
+                console.log(incident);
+                router.push({name: "home", query: { incident: incident.id }})
             })
             return marker;
         }
