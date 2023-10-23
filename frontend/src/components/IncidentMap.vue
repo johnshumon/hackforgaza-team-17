@@ -75,11 +75,14 @@ async function initMaps(googleMaps: google.maps.MapsLibrary, googleMarker: googl
         }
         
         function createMarkerGlyph(incident: Incident) {
+            const glyphWrapper = document.createElement("div");
+            glyphWrapper.classList.add("h-12", "w-12", "flex", "justify-center", "items-center", "rounded-full", selectIconColourClass(incident));
             const glyphImg = document.createElement("img");
+            glyphWrapper.appendChild(glyphImg);
             glyphImg.src = selectIconImage(incident);
-            glyphImg.classList.add("h-8", "w-8", selectIconColourClass(incident), "p-1");
+            glyphImg.classList.add("p-1");
             glyphImg.style.cursor = "pointer"
-            return glyphImg;
+            return glyphWrapper;
         }    
         function createMarker(incident: Incident) {
             const marker = new googleMarker.AdvancedMarkerElement({
