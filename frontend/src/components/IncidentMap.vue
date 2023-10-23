@@ -6,6 +6,8 @@ import iconVictimsMaimed from "../assets/icons/victims/maimed.svg";
 import iconVictimsInjured from "../assets/icons/victims/injured.svg";
 import iconVictimsDetained from "../assets/icons/victims/detained.svg";
 import iconVictimsDispossessed from "../assets/icons/victims/dispossessed.svg";
+import iconIncident from "../assets/icons/victims/incident.svg";
+import type { Incident } from '@/model/incident';
 
     const props = defineProps<{
         mapId: string
@@ -14,12 +16,7 @@ import iconVictimsDispossessed from "../assets/icons/victims/dispossessed.svg";
             lng: number
         },
         zoom: number,
-        incidents: {
-            position: {
-                lat: number,
-                lng: number,
-            }
-        }[],
+        incidents: Incident[],
     }>();
 
 const mapBox = ref<HTMLDivElement>();
@@ -57,27 +54,44 @@ async function initMaps(googleMaps: google.maps.MapsLibrary, googleMarker: googl
 
 
     function drawMarkers(map: google.maps.Map, googleMarker: google.maps.MarkerLibrary) {
-        function createMarkerGlyph() {
+        function selectIconImage(incident: Incident) : string {
+            if (incident.killed > 0) return iconVictimsKilled;
+            if (incident.maimed > 0) return iconVictimsMaimed;
+            if (incident.injured > 0) return iconVictimsInjured;
+            if (incident.detained > 0) return iconVictimsDetained;
+            if (incident.dispossessed > 0) return iconVictimsDispossessed;
+            return iconIncident;
+        }
+
+        function selectIconColourClass(incident: Incident) : string {
+            if (incident.killed < 1 && incident.maimed < 1 && incident.injured < 1) {
+                return "bg-amber-500"
+            } else {
+                return "bg-red-500"
+            }
+        }
+        
+        function createMarkerGlyph(incident: Incident) {
             const glyphImg = document.createElement("img");
-            glyphImg.src = iconVictimsDetained;
-            glyphImg.classList.add("h-8", "w-8", "bg-red-500", "rounded-full", "p-1");
+            glyphImg.src = selectIconImage(incident);
+            glyphImg.classList.add("h-8", "w-8", selectIconColourClass(incident), "p-1");
             glyphImg.style.cursor = "pointer"
             return glyphImg;
         }    
-        function createMarker(position: {lat: number, lng: number}) {
+        function createMarker(incident: Incident) {
             const marker = new googleMarker.AdvancedMarkerElement({
                 map,
-                position,
-                content: createMarkerGlyph(),
+                position: incident.location,
+                content: createMarkerGlyph(incident),
             });
             marker.addListener("click", ()=>{
-                console.log(position)
+                console.log(incident)
             })
             return marker;
         }
         
         props.incidents.forEach((incident)=>{
-            createMarker(incident.position)
+            createMarker(incident)
         })
     }
 

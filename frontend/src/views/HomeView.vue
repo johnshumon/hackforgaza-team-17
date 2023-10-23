@@ -3,7 +3,8 @@ import { onMounted, ref } from 'vue';
 import IncidentMap from '../components/IncidentMap.vue';
 import { useMainHeight } from '../composables/mainHeight';
 import { GMAP_MAP_ID_MAIN_INCIDENT_MAP } from '../libs/google-maps';
-import { getIncidents } from '@/libs/api';
+import { getIncidents } from '@/api';
+
 
 const PalestineCenter = {
   lat: 31.320443,
@@ -15,7 +16,7 @@ const { mainHeight } = useMainHeight();
 const data = ref<any>();
 onMounted(async ()=>{
   try {
-  data.value = await getIncidents(9);
+  data.value = await getIncidents("palestinian");
   } catch (e) {
     console.error("Failed to fetch data:\n", e);
   }
