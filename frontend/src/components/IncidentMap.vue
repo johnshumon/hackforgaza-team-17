@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { mergeProps, onBeforeMount, onMounted, ref, watch } from 'vue';
 import {} from "google.maps";
+import { MarkerClusterer, Renderer } from "@googlemaps/markerclusterer";
 import iconVictimsKilled from "../assets/icons/victims/killed.svg";
 import iconVictimsMaimed from "../assets/icons/victims/maimed.svg";
 import iconVictimsInjured from "../assets/icons/victims/injured.svg";
@@ -36,7 +37,9 @@ async function initMaps(googleMaps: google.maps.MapsLibrary, googleMarker: googl
         center: props.centerPosition,
         zoom: props.zoom,
         mapId: props.mapId,
-        clickableIcons: false
+        clickableIcons: false,
+        fullscreenControl: false,
+        mapTypeControl: false
     });
 
     // debug map capabilities
@@ -90,9 +93,48 @@ async function initMaps(googleMaps: google.maps.MapsLibrary, googleMarker: googl
             return marker;
         }
         
+        // generate markers
+        const markers : google.maps.marker.AdvancedMarkerElement[] = [];
         props.incidents.forEach((incident)=>{
-            createMarker(incident)
-        })
+            markers.push(createMarker(incident));
+        });
+
+        // create marker cluster to manage markers
+        const clusterRenderer : Renderer = {
+            render(cluster, stats, map) {
+                const count = cluster.count;
+                const position = cluster.position;
+                // change color if this cluster has more markers than the mean cluster
+                const color =
+                count > Math.max(10, stats.clusters.markers.mean)
+                    ? "#ff0000"  // <-- comparative high colour
+                    : "#ff4f00"; // <-- comparitive low colour
+                // create svg url with fill color
+                const svg = window.btoa(`
+                <svg fill="${color}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
+                <circle cx="120" cy="120" opacity="1" r="70" />
+                <circle cx="120" cy="120" opacity=".6" r="90" />
+                <circle cx="120" cy="120" opacity=".3" r="110" />
+                <circle cx="120" cy="120" opacity=".15" r="130" />
+                </svg>`);
+                // create marker using svg icon
+                return new google.maps.Marker({
+                position,
+                icon: {
+                    url: `data:image/svg+xml;base64,${svg}`,
+                    scaledSize: new google.maps.Size(45, 45),
+                },
+                label: {
+                    text: String(count),
+                    color: "rgba(255,255,255,0.9)",
+                    fontSize: "18px",
+                },
+                // adjust zIndex to be above other markers
+                zIndex: 1000 + count,
+                });
+            },
+        }
+        new MarkerClusterer({map, markers, renderer: clusterRenderer});
     }
 
 function onMapResize(map: google.maps.Map) {
