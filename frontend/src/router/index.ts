@@ -19,7 +19,7 @@ const router = createRouter({
     {
       path:'/victims/:id',
       name: 'victim',
-      component: VictimView,
+      component: VictimView
     }
     // {
     //   path: '/about',
