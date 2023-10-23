@@ -2,6 +2,7 @@ import {Server as HttpServer} from "http";
 import express, { NextFunction } from "express"
 import { JsonRestApiRouteAny } from "./route";
 import { BAD_REQUEST_RESPONSE, makeResponder } from "./response";
+import cors from "cors";
 type Request = express.Request;
 type Response = express.Response;
 
@@ -27,6 +28,8 @@ class Server {
         this.routes = routes;
         // create server app
         this.#serverApp = express();
+        // use cors middleware
+        this.#serverApp.use(cors());
         // use json middleware
         this.#serverApp.use(express.json());
         // handle errors at the top-level

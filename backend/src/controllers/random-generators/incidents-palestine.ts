@@ -128,7 +128,7 @@ export function generateRandomIncidents(nPerEpicentre: number) : GetIncidentResu
         geocodes.push(epicentre);
         // add random coordinates around epicentre
         for (let i=0;i<nPerEpicentre-1; ++i) {
-            const randomGeocode = faker.location.nearbyGPSCoordinate({ origin: [epicentre.x, epicentre.y] });
+            const randomGeocode = faker.location.nearbyGPSCoordinate({ origin: [epicentre.x, epicentre.y], radius: 1 });
             geocodes.push({
                 srid: 4326,
                 x: randomGeocode[0],
