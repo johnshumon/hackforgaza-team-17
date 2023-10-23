@@ -7,8 +7,4 @@ export const GeoCoordinate = z.object({
     y: z.number()
 });
 
-// this represents an array of the above
-export const GeoCoordinateArray = GeoCoordinate.array();
-
 export type GeoCoordinate = z.infer<typeof GeoCoordinate>;
-export type GeoCoordinateArray = z.infer<typeof GeoCoordinateArray>;
