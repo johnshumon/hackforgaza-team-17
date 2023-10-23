@@ -210,7 +210,7 @@ export async function getIncidents(context?: string) {
                 environmental_conservation_areas_damaged: i.environmental_conservation_areas_damaged,                
             }
             return incident;
-        })
+        }) as Incident[];
         // console.log(result.data.data.result);
         // return result.data.data.result.map((incidentWithContext:any)=>{
         //     console.log(incidentWithContext)
