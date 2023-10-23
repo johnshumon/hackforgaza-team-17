@@ -15,7 +15,10 @@ import iconVictimsDispossessed from "../assets/icons/victims/dispossessed.svg";
         },
         zoom: number,
         incidents: {
-            
+            position: {
+                lat: number,
+                lng: number,
+            }
         }[],
     }>();
 
@@ -35,7 +38,8 @@ async function initMaps(googleMaps: google.maps.MapsLibrary, googleMarker: googl
     const map = new googleMaps.Map(mapBox.value, {
         center: props.centerPosition,
         zoom: props.zoom,
-        mapId: props.mapId
+        mapId: props.mapId,
+        clickableIcons: false
     });
 
     // debug map capabilities
@@ -53,20 +57,28 @@ async function initMaps(googleMaps: google.maps.MapsLibrary, googleMarker: googl
 
 
     function drawMarkers(map: google.maps.Map, googleMarker: google.maps.MarkerLibrary) {
-        function createMarker() {
+        function createMarkerGlyph() {
             const glyphImg = document.createElement("img");
             glyphImg.src = iconVictimsDetained;
             glyphImg.classList.add("h-8", "w-8", "bg-red-500", "rounded-full", "p-1");
+            glyphImg.style.cursor = "pointer"
             return glyphImg;
         }    
+        function createMarker(position: {lat: number, lng: number}) {
+            const marker = new googleMarker.AdvancedMarkerElement({
+                map,
+                position,
+                content: createMarkerGlyph(),
+            });
+            marker.addListener("click", ()=>{
+                console.log(position)
+            })
+            return marker;
+        }
         
-
-        new googleMarker.AdvancedMarkerElement({
-            map,
-            position: {lat: 32.0426261, lng: 34.7469578},
-            content: createMarker(),
-            title: 'A marker using a custom PNG Image'
-        });
+        props.incidents.forEach((incident)=>{
+            createMarker(incident.position)
+        })
     }
 
 function onMapResize(map: google.maps.Map) {
