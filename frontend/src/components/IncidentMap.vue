@@ -39,7 +39,8 @@ async function initMaps(googleMaps: google.maps.MapsLibrary, googleMarker: googl
         mapId: props.mapId,
         clickableIcons: false,
         fullscreenControl: false,
-        mapTypeControl: false
+        mapTypeControl: false,
+        streetViewControl: false,
     });
 
     // debug map capabilities
