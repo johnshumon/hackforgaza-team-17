@@ -1,14 +1,16 @@
 import { z } from "zod";
 import { GeoCoordinate } from "./geocoordinate";
 import { IncidentCategory } from "./incident-category";
-import { AuditStatus, Count, DateTime, NonEmptyText, Tags } from "./common";
+import { AuditStatus, Count, DateTime, MaybeEmptyText, NonEmptyText, Tags } from "./common";
 
 export const Incident = z.object({
     id: NonEmptyText,
+    contextSlug: NonEmptyText,
+
     title: NonEmptyText,
     
     // description
-    description: NonEmptyText,
+    description: MaybeEmptyText,
     categories: IncidentCategory.array().min(1),
 
     // time and location
