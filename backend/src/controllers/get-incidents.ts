@@ -3,17 +3,37 @@ import { makeRouteHandler, NOT_FOUND_RESPONSE, SUCCESS_RESPONSE, NOT_IMPLEMENTED
 import { Incident } from "../../model/incident"
 import genocideContexts from "../data/genocide-contexts";
 
-export const GetIncidentsResponse = z.object({
-    incidents: Incident.array()
-});
+const GetIncidentsResponse = z.object({
+    incidents: Incident.merge(z.object({
+        killed: z.number().int().gte(0),
+        adult_killed: z.number().int().gte(0),
+        child_killed: z.number().int().gte(0),
 
-export const IncidentsQuery = z.object({
+        maimed: z.number().int().gte(0),
+        adult_maimed: z.number().int().gte(0),
+        child_maimed: z.number().int().gte(0),
+
+        injured: z.number().int().gte(0),
+        adult_injured: z.number().int().gte(0),
+        child_injured: z.number().int().gte(0),
+
+        detained: z.number().int().gte(0),
+        adult_detained: z.number().int().gte(0),
+        child_detained: z.number().int().gte(0),
+
+        dispossessed: z.number().int().gte(0),
+        adult_dispossessed: z.number().int().gte(0),
+        child_dispossessed: z.number().int().gte(0),
+    })).array()
+});
+type GetIncidentsResponse = z.infer<typeof GetIncidentsResponse>;
+
+const IncidentsQuery = z.object({
     // ids: z.string().array().optional(),
     from: z.string().datetime().optional(),
     to: z.string().datetime().optional(),
 });
 export type IncidentsQuery = z.infer<typeof IncidentsQuery>;
-
 export type IncidentsQueryHandler = (query: IncidentsQuery) => Incident[];
 
 export default makeRouteHandler({
@@ -31,11 +51,33 @@ export default makeRouteHandler({
         }
         if (query?.["random-data"] && genocideContext.test) {
             const result = genocideContext.test.incidentsQueryHandler(query);
+            const responseData : GetIncidentsResponse = {
+                incidents: result.map((r)=>({
+                    ...r,
+                    killed: (r.adult_male_killed ?? 0) + (r.child_male_killed ?? 0) + (r.adult_female_killed ?? 0) + (r.child_female_killed ?? 0) + (r.unidentified_killed ?? 0) + (r.adult_ungendered_killed ?? 0) + (r.child_ungendered_killed ?? 0),
+                    adult_killed: (r.adult_male_killed ?? 0) + (r.adult_female_killed ?? 0) + (r.adult_ungendered_killed ?? 0),
+                    child_killed: (r.child_male_killed ?? 0) + (r.child_female_killed ?? 0) + (r.child_ungendered_killed ?? 0),
+
+                    maimed: (r.adult_male_maimed ?? 0) + (r.child_male_maimed ?? 0) + (r.adult_female_maimed ?? 0) + (r.child_female_maimed ?? 0) + (r.unidentified_maimed ?? 0) + (r.adult_ungendered_maimed ?? 0) + (r.child_ungendered_maimed ?? 0),
+                    adult_maimed: (r.adult_male_maimed ?? 0) + (r.adult_female_maimed ?? 0) + (r.adult_ungendered_maimed ?? 0),
+                    child_maimed: (r.child_male_maimed ?? 0) + (r.child_female_maimed ?? 0) + (r.child_ungendered_maimed ?? 0),
+
+                    injured: (r.adult_male_injured ?? 0) + (r.child_male_injured ?? 0) + (r.adult_female_injured ?? 0) + (r.child_female_injured ?? 0) + (r.unidentified_injured ?? 0) + (r.adult_ungendered_injured ?? 0) + (r.child_ungendered_injured ?? 0),
+                    adult_injured: (r.adult_male_injured ?? 0) + (r.adult_female_injured ?? 0) + (r.adult_ungendered_injured ?? 0),
+                    child_injured: (r.child_male_injured ?? 0) + (r.child_female_injured ?? 0) + (r.child_ungendered_injured ?? 0),
+
+                    detained: (r.adult_male_detained ?? 0) + (r.child_male_detained ?? 0) + (r.adult_female_detained ?? 0) + (r.child_female_detained ?? 0) + (r.unidentified_detained ?? 0) + (r.adult_ungendered_detained ?? 0) + (r.child_ungendered_detained ?? 0),
+                    adult_detained: (r.adult_male_detained ?? 0) + (r.adult_female_detained ?? 0) + (r.adult_ungendered_detained ?? 0),
+                    child_detained: (r.child_male_detained ?? 0) + (r.child_female_detained ?? 0) + (r.child_ungendered_detained ?? 0),                    
+
+                    dispossessed: (r.adult_male_dispossessed ?? 0) + (r.child_male_dispossessed ?? 0) + (r.adult_female_dispossessed ?? 0) + (r.child_female_dispossessed ?? 0) + (r.unidentified_dispossessed ?? 0) + (r.adult_ungendered_dispossessed ?? 0) + (r.child_ungendered_dispossessed ?? 0),
+                    adult_dispossessed: (r.adult_male_dispossessed ?? 0) + (r.adult_female_dispossessed ?? 0) + (r.adult_ungendered_dispossessed ?? 0),
+                    child_dispossessed: (r.child_male_dispossessed ?? 0) + (r.child_female_dispossessed ?? 0) + (r.child_ungendered_dispossessed ?? 0),                    
+                }))
+            }
             return SUCCESS_RESPONSE(
                 `Random incidents generated for given context: '${params.context}'`,
-                {
-                    incidents: result
-                } 
+                responseData
             );
         } else if (query?.["random-data"] && !genocideContext.test) {
             return NOT_IMPLEMENTED_RESPONSE("Querying fake data has not been implemented yet! Please try without 'random-data=true' query.")
