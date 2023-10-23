@@ -37,3 +37,21 @@ export const INTERNAL_SERVER_ERROR_RESPONSE = (msg: string) => ({
     userFriendlyMessage: msg,
     data: undefined
 }) as const;
+
+export const NOT_FOUND_RESPONSE = (msg: string) => ({
+    status: httpResponseStatus.NOT_FOUND,
+    userFriendlyMessage: msg,
+    data: undefined
+}) as const;
+
+export const NOT_IMPLEMENTED_RESPONSE = (msg: string) => ({
+    status: httpResponseStatus.NOT_IMPLEMENTED,
+    userFriendlyMessage: msg,
+    data: undefined
+}) as const;
+
+export const SUCCESS_RESPONSE = <T>(msg: string, data: T) => ({
+    status: httpResponseStatus.OK,
+    userFriendlyMessage: msg,
+    data: data
+}) as const;

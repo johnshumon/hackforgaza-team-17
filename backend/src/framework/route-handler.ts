@@ -62,7 +62,6 @@ export class JsonRestApiRouteHandler<
         this.handler = args.handler;
     }
     async handle(request: Request, response: Response) {
-        console.log(request.params);
         const rawRequest : Request | undefined = request;
         const responder = makeResponder<I|undefined>(response);
         // 1. parse request body
