@@ -74,7 +74,7 @@ export const randomIncidentsQueryHandler : IncidentsQueryHandler = (query: Incid
         ],
         minIncidentsPerEpicentre: 20,
         maxIncidentsPerEpicentre: 50,
-        radiusFromEpicentre: 1,
+        radiusFromEpicentre: 10,
         from,
         to
     }, randomIncidentGenerator);
