@@ -1,7 +1,12 @@
+import { faker } from "@faker-js/faker";
+
 // generate a random integer
 export function randomInt(incMin: number, incMax: number) : number {
     return Math.floor(Math.random() * (incMax - incMin + 1) ) + incMin;
 }
+
+// generate a random date
+export const randomDate = (from: string, to: string) => faker.date.between({ from, to });
 
 // produce a random smaller array from a large one
 export function randomSelection<T>(haystack: Array<T>, min: number, max: number) : Array<T> {
@@ -15,7 +20,7 @@ export function randomSelection<T>(haystack: Array<T>, min: number, max: number)
     return noDuplicates;
 }
 
-// generate N-types of a T object with weighted probability for each type
+// generate N-types of a T object with weighted probability (frequency) for each type
 export type WeightedObjectGeneratorFunction<T> = ()=>T;
 export type WeightedObjectGeneratorSpec<T> = {
     name: string,
