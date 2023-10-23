@@ -21,7 +21,7 @@ export async function getIncidents(context?: string) {
                     lat: i.location.x,
                     lng: i.location.y
                 },
-                date: new Date(i.data),
+                dateTime: new Date(i.dateTime),
                 tags: i.tags,
                 adult_male_killed: i.adult_male_killed,
                 adult_male_maimed: i.adult_male_maimed,

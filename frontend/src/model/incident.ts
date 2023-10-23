@@ -10,7 +10,7 @@ export type Incident = {
         lat: number,
         lng: number,
     },
-    date: Date,
+    dateTime: Date,
     tags: string[]
     
     /* Human Loss */
