@@ -1,35 +1,29 @@
 import { z } from "zod";
-import { NOT_FOUND_RESPONSE, SUCCESS_RESPONSE, makeRouteHandler } from "../framework";
-import genocideContexts from "../data/genocide-contexts";
+import { BAD_REQUEST_RESPONSE, SUCCESS_RESPONSE, makeRouteHandler } from "../framework";
+import getContextInfoByContextId from "../data/get-context-info-by-context-id";
+import { ContextInfo } from "../../model/context-info";
 
-const GetContextInfoResponse = z.object({
-    slug: z.string().min(1),
-    people: z.string().min(1),
-    map: z.object({
-        defaultPosition: z.object({
-            centre: z.object({
-                lat: z.number(),
-                lng: z.number()
-            }),
-            zoom: z.number()
-        })
-    })
-});
 
 export default makeRouteHandler({
     description: "Get genocide context.",
     request: z.object({}),
-    response: GetContextInfoResponse,
-    async handler(request, params, query) {
-        const genocideContext = genocideContexts.find((gc)=>gc.slug === params.context);
-        if (!genocideContext) {
-            return NOT_FOUND_RESPONSE(`Given context does not exist: '${params.context}'`);
+    response: z.object({
+        contextInfo: ContextInfo
+    }),
+    async handler(request, params) {
+        if (!params.contextId) {
+            return BAD_REQUEST_RESPONSE(`Given context does not exist: '${params.contextId}'`);
         }
-        const responseData = GetContextInfoResponse.parse({
-            slug: genocideContext.slug,
-            people: genocideContext.people,
-            map: genocideContext.map
-        })
+        const RouteParams = z.object({
+            contextId: z.string().uuid()
+        });
+        if (!RouteParams.safeParse(params).success) {
+            return BAD_REQUEST_RESPONSE(`Given context is invalid: '${params.contextId}'`);
+        }
+        
+        const responseData = {
+            contextInfo: await getContextInfoByContextId(params.contextId)
+        };
         return SUCCESS_RESPONSE("Context found.", responseData);
     }
-})
+});

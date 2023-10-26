@@ -9,12 +9,12 @@ startNewServer({
     version: pkg.version,
     routes: [
         {
-            path: "/incidents/:context",
+            path: "/incidents/:contextId",
             method: "GET",
             handler: getIncidents
         },
         {
-            path: "/context-info/:context",
+            path: "/context-info/:contextId",
             method: "GET",
             handler: getContextInfo
         }
