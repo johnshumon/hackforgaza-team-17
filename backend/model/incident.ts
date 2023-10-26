@@ -1,21 +1,18 @@
 import { z } from "zod";
-import { GeoCoordinate } from "./geocoordinate";
-import { IncidentCategory } from "./incident-category";
-import { AuditStatus, Count, DateTime, MaybeEmptyText, NonEmptyText, Tags } from "./common";
+import { AuditStatus, Count, DateTime, MaybeEmptyText, NamedLocation, NonEmptyText, Tags } from "./common";
 
 export const Incident = z.object({
     id: NonEmptyText,
-    contextSlug: NonEmptyText,
-
-    title: NonEmptyText,
+    publicId: NonEmptyText,
+    title: MaybeEmptyText,
     
     // description
     description: MaybeEmptyText,
-    categories: IncidentCategory.array().min(1),
+    categories: Tags,
 
     // time and location
-    location: GeoCoordinate,
-    dateTime: DateTime,
+    location: NamedLocation.nullable(),
+    dateTime: DateTime.nullable(),
     
     /* Human Loss */
     adult_male_killed: Count,
@@ -185,7 +182,7 @@ export const Incident = z.object({
     environmental_conservation_areas_damaged: Count,
 
     // audit status
-    status: AuditStatus,
+    auditStatus: AuditStatus,
         
     // for grouping
     tags: Tags
