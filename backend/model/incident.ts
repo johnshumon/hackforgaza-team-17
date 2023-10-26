@@ -51,11 +51,23 @@ export const Incident = z.object({
     child_ungendered_detained: Count,
     child_ungendered_dispossessed: Count,
     
-    unidentified_killed: Count,
-    unidentified_maimed: Count,
-    unidentified_injured: Count,
-    unidentified_detained: Count,
-    unidentified_dispossessed: Count,    
+    unaged_male_killed: Count,
+    unaged_male_maimed: Count,
+    unaged_male_injured: Count,
+    unaged_male_detained: Count,
+    unaged_male_dispossessed: Count,
+
+    unaged_female_killed: Count,
+    unaged_female_maimed: Count,
+    unaged_female_injured: Count,
+    unaged_female_detained: Count,
+    unaged_female_dispossessed: Count,
+
+    unaged_ungendered_killed: Count,
+    unaged_ungendered_maimed: Count,
+    unaged_ungendered_injured: Count,
+    unaged_ungendered_detained: Count,
+    unaged_ungendered_dispossessed: Count,    
 
     /* Civil Infrastructure Loss */
     roads_and_streets_destroyed: Count,

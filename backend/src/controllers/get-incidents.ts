@@ -105,23 +105,23 @@ export default makeRouteHandler({
         const responseData : GetIncidentsResponse = {
             incidents: incidents.map((r)=>{
                 /* Human Loss Aggregate */
-                const killed = r.adult_male_killed + r.child_male_killed + r.adult_female_killed + r.child_female_killed + r.adult_ungendered_killed + r.child_ungendered_killed + r.unidentified_killed;
+                const killed = r.adult_male_killed + r.child_male_killed + r.adult_female_killed + r.child_female_killed + r.adult_ungendered_killed + r.child_ungendered_killed + r.unaged_male_killed + r.unaged_female_killed + r.unaged_ungendered_killed;
                 const adult_killed = r.adult_male_killed  + r.adult_female_killed  + r.adult_ungendered_killed;
                 const child_killed = r.child_male_killed  + r.child_female_killed  + r.child_ungendered_killed;
 
-                const maimed = r.adult_male_maimed + r.child_male_maimed + r.adult_female_maimed  + r.child_female_maimed + r.adult_ungendered_maimed  + r.child_ungendered_maimed + r.unidentified_maimed;
+                const maimed = r.adult_male_maimed + r.child_male_maimed + r.adult_female_maimed  + r.child_female_maimed + r.adult_ungendered_maimed  + r.child_ungendered_maimed + r.unaged_male_maimed + r.unaged_female_maimed + r.unaged_ungendered_maimed
                 const adult_maimed = r.adult_male_maimed  + r.adult_female_maimed  + r.adult_ungendered_maimed;
                 const child_maimed = r.child_male_maimed  + r.child_female_maimed  + r.child_ungendered_maimed;
 
-                const injured = r.adult_male_injured  + r.child_male_injured  + r.adult_female_injured  + r.child_female_injured  + r.adult_ungendered_injured  + r.child_ungendered_injured + r.unidentified_injured;
+                const injured = r.adult_male_injured  + r.child_male_injured  + r.adult_female_injured  + r.child_female_injured  + r.adult_ungendered_injured  + r.child_ungendered_injured + r.unaged_male_injured + r.unaged_female_injured + r.unaged_ungendered_injured;
                 const adult_injured = r.adult_male_injured  + r.adult_female_injured  + r.adult_ungendered_injured;
                 const child_injured = r.child_male_injured  + r.child_female_injured  + r.child_ungendered_injured;
 
-                const detained = r.adult_male_detained  + r.child_male_detained  + r.adult_female_detained  + r.child_female_detained + r.adult_ungendered_detained  + r.child_ungendered_detained + r.unidentified_detained;
+                const detained = r.adult_male_detained  + r.child_male_detained  + r.adult_female_detained  + r.child_female_detained + r.adult_ungendered_detained  + r.child_ungendered_detained + r.unaged_male_detained + r.unaged_female_detained + r.unaged_ungendered_detained;
                 const adult_detained = r.adult_male_detained  + r.adult_female_detained  + r.adult_ungendered_detained;
                 const child_detained = r.child_male_detained  + r.child_female_detained  + r.child_ungendered_detained;                    
 
-                const dispossessed = r.adult_male_dispossessed  + r.child_male_dispossessed  + r.adult_female_dispossessed  + r.child_female_dispossessed + r.adult_ungendered_dispossessed  + r.child_ungendered_dispossessed + r.unidentified_dispossessed;
+                const dispossessed = r.adult_male_dispossessed  + r.child_male_dispossessed  + r.adult_female_dispossessed  + r.child_female_dispossessed + r.adult_ungendered_dispossessed  + r.child_ungendered_dispossessed + r.unaged_male_dispossessed + r.unaged_female_dispossessed + r.unaged_ungendered_dispossessed;
                 const adult_dispossessed = r.adult_male_dispossessed  + r.adult_female_dispossessed  + r.adult_ungendered_dispossessed;
                 const child_dispossessed = r.child_male_dispossessed  + r.child_female_dispossessed  + r.child_ungendered_dispossessed;                    
 

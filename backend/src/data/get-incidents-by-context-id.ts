@@ -69,11 +69,23 @@ async function getIncidentsByContextId(contextId: string) {
             child_ungendered_detained: r?.properties["Child Ungendered Detained"]?.number ?? 0,
             child_ungendered_dispossessed: r?.properties["Child Ungendered Dispossessed"]?.number ?? 0,
             
-            unidentified_killed: r?.properties["Unidentified Killed"]?.number ?? 0,
-            unidentified_maimed: r?.properties["Unidentified Maimed"]?.number ?? 0,
-            unidentified_injured: r?.properties["Unidentified Injured"]?.number ?? 0,
-            unidentified_detained: r?.properties["Unidentified Detained"]?.number ?? 0,
-            unidentified_dispossessed: r?.properties["Unidentified Dispossessed"]?.number ?? 0,
+            unaged_male_killed: r?.properties["Unaged Male Killed"]?.number ?? 0,
+            unaged_male_maimed: r?.properties["Unaged Male Maimed"]?.number ?? 0,
+            unaged_male_injured: r?.properties["Unaged Male Injured"]?.number ?? 0,
+            unaged_male_detained: r?.properties["Unaged Male Detained"]?.number ?? 0,
+            unaged_male_dispossessed: r?.properties["Unaged Male Dispossessed"]?.number ?? 0,
+        
+            unaged_female_killed: r?.properties["Unaged Female Killed"]?.number ?? 0,
+            unaged_female_maimed: r?.properties["Unaged Female Maimed"]?.number ?? 0,
+            unaged_female_injured: r?.properties["Unaged Female Injured"]?.number ?? 0,
+            unaged_female_detained: r?.properties["Unaged Female Detained"]?.number ?? 0,
+            unaged_female_dispossessed: r?.properties["Unaged Female Dispossessed"]?.number ?? 0,
+
+            unaged_ungendered_killed: r?.properties["Unaged Ungendered Killed"]?.number ?? 0,
+            unaged_ungendered_maimed: r?.properties["Unaged Ungendered Maimed"]?.number ?? 0,
+            unaged_ungendered_injured: r?.properties["Unaged Ungendered Injured"]?.number ?? 0,
+            unaged_ungendered_detained: r?.properties["Unaged Ungendered Detained"]?.number ?? 0,
+            unaged_ungendered_dispossessed: r?.properties["Unaged Ungendered Dispossessed"]?.number ?? 0,
 
             /* Civil Infrastructure Loss */
             roads_and_streets_destroyed: r?.properties["Roads and Streets Destroyed"]?.number ?? 0,
