@@ -30,6 +30,6 @@ const contextMap : ContextMap = {
             password:   loadRequiredEnvironmentVariable("NEO4J_PASSWORD", "string")
         }
     }
-};
+} as const;
 
 export default contextMap;

@@ -1,6 +1,7 @@
 import { startNewServer } from "./framework";
 import pkg from "../package.json";
 import unimplemented from "./controllers/unimplemented";
+import getContextInfo from "./controllers/get-context-info";
 
 startNewServer({
     name: pkg.name,
@@ -15,7 +16,7 @@ startNewServer({
         {
             path: "/context-info/:contextId",
             method: "GET",
-            handler: unimplemented
+            handler: getContextInfo
         }
     ]
 }, 3000);
