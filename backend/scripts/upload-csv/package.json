@@ -1,0 +1,22 @@
+{
+  "name": "upload-csv",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "insert": "ts-node -r dotenv/config ./src/index.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "commander": "^11.1.0",
+    "csv-parser": "^3.0.0",
+    "dayjs": "^1.11.10",
+    "dotenv": "^16.3.1",
+    "object-hash": "^3.0.0",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "@types/uuid": "^9.0.6"
+  }
+}
