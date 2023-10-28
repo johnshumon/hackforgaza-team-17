@@ -1,19 +1,23 @@
 import { z } from "zod";
-import { AuditStatus, Count, DateTime, MaybeEmptyText, NamedLocation, NonEmptyText, Tags } from "./common";
+import { Count, Date, MaybeEmptyText, NonEmptyText, Unknown } from "../common";
+import { entity } from "./entity";
+import { IncidentCategories } from "../incident-category";
 
-export const Incident = z.object({
-    id: NonEmptyText,
-    publicId: NonEmptyText,
-    title: MaybeEmptyText,
-    
-    // description
-    description: MaybeEmptyText,
-    categories: Tags,
+const Perpetrators = z.union([
+    NonEmptyText.array().min(1),
+    Unknown
+])
 
-    // time and location
-    location: NamedLocation.nullable(),
-    dateTime: DateTime.nullable(),
+export const Incident = entity.merge(z.object({
+    // incident title and categories (optional)
+    title: MaybeEmptyText,              // default: ""
+    categories: IncidentCategories,     // default: unknown
+    perpetrators: Perpetrators,         // default: unknown
     
+    // date of incident
+    date: Date,
+    
+
     /* Human Loss */
     adult_male_killed: Count,
     adult_male_maimed: Count,
@@ -192,12 +196,7 @@ export const Incident = z.object({
 
     environmental_conservation_areas_destroyed: Count,
     environmental_conservation_areas_damaged: Count,
+}));
 
-    // audit status
-    auditStatus: AuditStatus,
-        
-    // for grouping
-    tags: Tags
-});
 
 export type Incident = z.infer<typeof Incident>;
