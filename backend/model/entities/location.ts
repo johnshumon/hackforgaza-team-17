@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { NonEmptyText, Unknown } from "../common";
-import { entity } from "./entity";
+import { defineEntity } from "./entity";
 
 const LocationType = z.union([
     z.literal("village"),
@@ -24,14 +24,16 @@ const Longitude = z.union([
     Unknown
 ]);
 
-export const Location = entity.merge(z.object({
-    // location name
-    name: NonEmptyText,
-    // location type (optional, default is unknown)
-    type: LocationType,
-    // geocode
-    latitude: Latitude,
-    longitude: Longitude
-}));
-
+export const Location = defineEntity(
+    "Location",
+    z.object({
+        // location name
+        name: NonEmptyText,
+        // location type (optional, default is unknown)
+        type: LocationType,
+        // geocode
+        latitude: Latitude,
+        longitude: Longitude
+    })
+);
 export type Location = z.infer<typeof Location>;

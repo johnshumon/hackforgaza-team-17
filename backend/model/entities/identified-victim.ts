@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { NonEmptyText, Boolean, Unknown } from "../common";
+import { defineEntity } from "./entity";
 
 const GovernmentIdNumber = z.union([
     NonEmptyText,
@@ -26,25 +27,27 @@ const Gender = z.union([
     Unknown
 ]);
 
-export const IdentifiedVictim = z.object({    
-    // name of victim
-    name: NonEmptyText,
+export const IdentifiedVictim = defineEntity(
+    "Identified Victim",
+    z.object({
+        // name of victim
+        name: NonEmptyText,
 
-    // age of victim if known or guestimated (default: "unknown")
-    age: Age,
+        // age of victim if known or guestimated (default: "unknown")
+        age: Age,
 
-    // gender of victim if known (default: "unknown")
-    gender: Gender,
+        // gender of victim if known (default: "unknown")
+        gender: Gender,
 
-    // government ID number (default: null)
-    government_id_number: GovernmentIdNumber,
+        // government ID number (default: null)
+        government_id_number: GovernmentIdNumber,
 
-    // combatant status (default: false)
-    combatant: Boolean,
+        // combatant status (default: false)
+        combatant: Boolean,
 
-    // citizenships held if known
-    citizenships: Citizenships
-});
-
+        // citizenships held if known
+        citizenships: Citizenships
+    })
+);
 
 export type IdentifiedVictim = z.infer<typeof IdentifiedVictim>;
