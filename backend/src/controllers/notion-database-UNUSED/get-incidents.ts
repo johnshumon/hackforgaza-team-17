@@ -1,8 +1,8 @@
 import { z } from "zod";
-import { makeRouteHandler, SUCCESS_RESPONSE, BAD_REQUEST_RESPONSE } from "../framework";
-import { Incident } from "../../model/incident"
-import { Count } from "../../model/common";
-import getIncidentsByContextId from "../data/get-incidents-by-context-id";
+import { makeRouteHandler, SUCCESS_RESPONSE, BAD_REQUEST_RESPONSE } from "../../framework";
+import { Incident } from "../../../model/incident"
+import { Count } from "../../../model/common";
+import getIncidentsByContextId from "../data/notion/get-incidents-by-context-id";
 
 
 const GetIncidentsResponse = z.object({
@@ -95,7 +95,7 @@ export default makeRouteHandler({
             return BAD_REQUEST_RESPONSE(`Given context does not exist: '${params.contextId}'`);
         }
         const RouteParams = z.object({
-            contextId: z.string().uuid()
+            contextId: z.string()
         })
         if (!RouteParams.safeParse(params).success) {
             return BAD_REQUEST_RESPONSE(`Given context is invalid: '${params.contextId}'`);

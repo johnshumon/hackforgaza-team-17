@@ -1,7 +1,7 @@
 import { z } from "zod";
-import { BAD_REQUEST_RESPONSE, SUCCESS_RESPONSE, makeRouteHandler } from "../framework";
-import getContextInfoByContextId from "../data/get-context-info-by-context-id";
-import { ContextInfo } from "../../model/context-info";
+import { BAD_REQUEST_RESPONSE, SUCCESS_RESPONSE, makeRouteHandler } from "../../framework";
+import getContextInfoByContextId from "../data/notion/get-context-info-by-context-id";
+import { ContextInfo } from "../../../data/context-info";
 
 
 export default makeRouteHandler({

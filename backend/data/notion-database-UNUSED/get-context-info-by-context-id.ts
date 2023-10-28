@@ -1,5 +1,5 @@
-import { ContextInfo } from "../../model/context-info";
-import { getNotionPage } from "../libs/notion";
+import { ContextInfo } from "../context-info";
+import { getNotionPage } from "../../src/libs/notion";
 
 export const ContextInfoParseError = new Error("Failed to parse context information from database.");
 

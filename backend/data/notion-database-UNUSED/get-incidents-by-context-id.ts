@@ -1,6 +1,6 @@
 import { Incident } from "../../model/incident";
-import { queryNotionDatabase } from "../libs/notion";
-import { loadRequiredEnvironmentVariable } from "../utils/env";
+import { queryNotionDatabase } from "../../src/libs/notion";
+import { loadRequiredEnvironmentVariable } from "../../src/utils/env";
 
 export const IncidentParseError = new Error("Failed to parse incident from database.");
 
