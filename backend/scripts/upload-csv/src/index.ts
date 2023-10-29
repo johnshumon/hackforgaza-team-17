@@ -457,15 +457,21 @@ class Parser {
 
 (async function() {
     program
-    .option("-f <path>", "path to csv file", "./data.csv");
+    .option("-f <path>", "path to csv file", "./data.csv")
+    .option("-N <num>", "number of entries to process from start", undefined)
 
     program.parse();
     const args = program.opts();
 
     const filePath = args.f;
+    const N = args.N ? parseInt(args.N) : undefined;
     
-    const entries = (await parseCSV(filePath)).filter((e)=> e.name !== "Name unknown to B'Tselem")
-    
+    let entries = (await parseCSV(filePath)).filter((e)=> e.name !== "Name unknown to B'Tselem");
+    if (N) {
+        entries = entries.splice(0, N);
+    }
+    console.info(entries.length + " entries...");
+
     const parser = new Parser(entries);
     await parser.parse();
 
