@@ -475,12 +475,12 @@ class Parser {
     const parser = new Parser(entries);
     await parser.parse();
 
+
     console.log("--- VICTIMS ---")
     for (const v of parser.identifiedVictims) {
         await client.setNode(v);
         console.log(v);
     }
-
     
     console.log("--- INCIDENTS ---")
     for (const i of parser.incidents) {
@@ -488,14 +488,12 @@ class Parser {
         console.log(i);
     }
     
-
     console.log("--- LOCATIONS ---")
     for (const loc of parser.locations) {
         await client.setNode(loc);
         console.log(loc);
     }
     
-
     console.log("--- LINK: INCIDENT LOCATIONS ---")
     for (const l of parser.occuredAt) {
         await client.setLink(l);
@@ -517,3 +515,4 @@ class Parser {
     console.log("DONE!");
     client.close();
 })();
+
