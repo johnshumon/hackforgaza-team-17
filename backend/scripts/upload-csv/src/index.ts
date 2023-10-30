@@ -44,7 +44,7 @@ function getProp<T>(entry: CSVEntry, key: string, as: T, required: boolean) {
     }
 }
 
-function deduceProp(entry: CSVEntry, key: string, options: {options:string[], to:string}[], required: boolean) {
+function deduceProp(entry: CSVEntry, key: string, options: {options:string[], to:any}[], required: boolean) {
     const val = entry[key];
 
     if (!val && required) {
@@ -119,8 +119,12 @@ class Parser {
                     ], false) as "male" | "female" | null,
                     government_id_number: null,
                     citizenships: (getProp(e, "citizenship", "string", true) as string).split(", "),
-                    combatant: (getProp(e, "took_part_in_the_hostilities", "string", false) as string | undefined) ? true : false,
-                    //
+                    combatant: deduceProp(e, "took_part_in_the_hostilities", [
+                        {
+                            options: ["yes", "true"],
+                            to: true
+                        }
+                    ], false) ?? false,
                     audit_status: "unaudited",
                     description: getProp(e, "notes", "string", false) as string | null ?? "",
                     tags: []
